@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import cors from "cors"
 import cookieParser from "cookie-parser";
-
+import router from "./routes/userRouter.js";
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -18,6 +18,9 @@ mongoose.connect(DB_URL).then(() =>{
 }).catch((err) =>{
     console.log('Error connecting to database');
 })
+
+//User Router
+app.use('/user' , router)
 
 
 app.listen(PORT, () =>{
