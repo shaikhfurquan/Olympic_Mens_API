@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import cors from "cors"
 import cookieParser from "cookie-parser";
-import router from "./routes/userRouter.js";
+import userRouter from "./routes/userRouter.js";
+import mensRankRouter from "./routes/userRouter.js";
+
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
@@ -20,7 +22,8 @@ mongoose.connect(DB_URL).then(() =>{
 })
 
 //User Router
-app.use('/user' , router)
+app.use('/user' , userRouter)
+app.use('/user/record' , mensRankRouter)
 
 
 app.listen(PORT, () =>{

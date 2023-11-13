@@ -1,79 +1,74 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import UserModel from "../models/userModel.js";
-import mongoose from 'mongoose';
-// import { generateCookie } from '../utils/features.js';
+import generateCookie from '../utils/feature.js';
 
-//Creating the user
-const userRegister = async (req,res) =>{
-    const {name,email,password} = req.body
+
+//user Registration Controller
+const userRegister = async (req, res) => {
+    const { name, email, password } = req.body
 
     //Check if the user exists already or not
-    let user = await UserModel.findOne({email})
-    if(user) return res.status(404).json({
-        success : false,
-        message : "User already exists..."
+    let user = await UserModel.findOne({ email })
+    if (user) return res.status(404).json({
+        success: false,
+        message: "User already exists..."
     })
-   
+
     //If user does not exist then we need to register the user with hash password.
-    const hashPassword = await bcrypt.hash(password , 10)
+    const hashPassword = await bcrypt.hash(password, 10)
     user = await UserModel.create({
         name,
         email,
-        password:hashPassword
+        password: hashPassword
     })
-
-    //token
-    // const token = jwt.sign({user}, '!@#$%^&*()')
-    const token = jwt.sign({_id:user._id}, '!@#$%^&*()')
-    console.log(token);
-
-    res.status(201).cookie("token" , token,{
-        httpOnly: true,
-        maxAge: 10*60*1000
-    }).json({
-        success: true,
-        message : "User Register successfully"
-    })
+    generateCookie(user, res, 201, "User Register successfully...")
 }
 
-
-const userLogin = async (req,res) =>{
-    const {email,password} = req.body
+//User Login Controller
+const userLogin = async (req, res) => {
+    const { email, password } = req.body
 
     //Check user exists or not
-    let user = await UserModel.findOne({email})
+    let user = await UserModel.findOne({ email })
 
     //if user does not exists then
-    if(!user) return res.status(400).json({
-        success : false,
-        message : "User Not exists..."
+    if (!user) return res.status(400).json({
+        success: false,
+        message: "User Not exists..."
     })
 
     //if user exist with email then we will verify the password compare(loginpassword , hasPassword)
-    const isMatch = await bcrypt.compare(password , user.password)
+    const isMatch = await bcrypt.compare(password, user.password)
 
     //if password does not match then
-    if(!isMatch) return res.status(400).json({
-        success : false,
-        message : "Invalid Credentials..."
+    if (!isMatch) return res.status(400).json({
+        success: false,
+        message: "Invalid Credentials..."
     })
-    
+
     //If password matche then
+    generateCookie(user, res, 201, `Welcome ${user.name}`)
+}
 
-    //token
-    // const token = jwt.sign({user}, '!@#$%^&*()')
-    const token = jwt.sign({_id:user._id}, '!@#$%^&*()')
-    console.log(token);
-
-    res.status(201).cookie("token" , token,{
-        httpOnly: true,
-        maxAge: 10*60*1000
+//User Logout Controller
+const userLogout = (req, res) => {
+    res.status(200).cookie("token", "", {
+        expires: new Date(Date.now())
     }).json({
         success: true,
-        message : `Welcome ${user.name}`
+        message: "User logged-Out successfully..."
     })
 }
 
 
-export {userRegister , userLogin}
+//My Profile
+const getMyProfile = (req,res) =>{
+    res.status(200).json({
+        success: true,
+        user:req.user
+
+    })
+}
+
+export { userRegister, userLogin, userLogout , getMyProfile}

@@ -1,14 +1,16 @@
 
-import express  from "express";
-import { userLogin, userRegister } from "../controllers/userController.js";
+import express from "express";
+import {userRegister , userLogin, userLogout , getMyProfile} from "../controllers/userController.js";
+import isAuthenticated from "../middlewares/auth.js";
 
 const router = express.Router();
 
 
-
-//Registrations route     user/register
-router.post('/register' , userRegister)
-router.post('/login' , userLogin)
+router.post('/register', userRegister)
+router.post('/login', userLogin)
+router.get('/logout', userLogout)
+router.get('/myprofile', isAuthenticated , getMyProfile)
 
 
 export default router
+
