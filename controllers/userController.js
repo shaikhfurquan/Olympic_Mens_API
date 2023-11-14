@@ -61,7 +61,6 @@ const userLogout = (req, res) => {
     })
 }
 
-
 //My Profile
 const getMyProfile = (req,res) =>{
     res.status(200).json({
@@ -71,4 +70,22 @@ const getMyProfile = (req,res) =>{
     })
 }
 
-export { userRegister, userLogin, userLogout , getMyProfile}
+//Get  user by Id
+const getUserById = async (req, res) =>{
+    const id = req.params.id
+    const user = await UserModel.findById(id)
+
+    if(!user) return res.status(404).json({
+        success: false,
+        message : "Invalid ID"
+    })
+
+    res.send({
+        success: true,
+        message: "This is the user",
+        user
+    })
+
+}
+
+export { userRegister, userLogin, userLogout , getMyProfile , getUserById}

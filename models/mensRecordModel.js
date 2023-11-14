@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MensRecodsSchema = new mongoose.Schema({
+const MensRecordsSchema = new mongoose.Schema({
     ranking :{
         type : Number,
         required: true,
@@ -17,7 +17,7 @@ const MensRecodsSchema = new mongoose.Schema({
         trim: true,
     },
     country : {
-        type : Number,
+        type : String,
         required: true,
         trim: true,
     },
@@ -41,6 +41,6 @@ const MensRecodsSchema = new mongoose.Schema({
     }
 })
 
-const MensRecodsModel = new mongoose.model('Rank' , MensRecodsSchema)
+const MensRecordsModel = new mongoose.model('Record' , MensRecordsSchema)
 
-export default MensRecodsModel
+export default MensRecordsModel

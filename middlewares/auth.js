@@ -1,5 +1,9 @@
 import jwt  from "jsonwebtoken";
+import dotenv from "dotenv";
 import UserModel from "../models/userModel.js";
+dotenv.config()
+
+const SECRET_KEY = process.env.SECRET_KEY
 
 const isAuthenticated = async (req, res, next) => {
     //token comming from cookie
@@ -13,7 +17,7 @@ const isAuthenticated = async (req, res, next) => {
     })
 
     //If token is available in browser then we have to verify it
-    const decode = jwt.verify(token, '!@#$%^&*()')
+    const decode = jwt.verify(token, SECRET_KEY)
     // console.log("decoded data -->" , decode);
 
     req.user = await UserModel.findById(decode._id)
