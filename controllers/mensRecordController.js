@@ -104,7 +104,7 @@ const getRecordById = async (req, res) => {
 
     res.json({
         success: true,
-        message: "Your Record...",
+        message: "Your Record is...",
         record
     })
 }
