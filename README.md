@@ -1,0 +1,129 @@
+Testing:-
+
+POST ---> User Register
+http://localhost:3636/user/register
+{
+  "name" : "tek",
+  "email" : "tek@gmail.com",
+  "password" : "kek@123"
+}
+o/p:-
+{
+  "success": true,
+  "message": "User Register successfully..."
+}
+
+POST ---> User Login
+http://localhost:3636/user/login
+{
+  "email" : "tek@gmail.com",
+  "password" : "kek@123"
+}
+
+o/p:-
+{
+  "success": true,
+  "message": "Welcome tek"
+}
+
+
+POST ---> Register/Adding records
+http://localhost:3636/records/add
+ { 
+  "ranking" : 1,
+  "name" : "shaikh Furquan",
+  "dob" : "24 Sept 2023",
+  "country" : "India",
+  "score" : "1054"
+ }
+o/p:
+{
+  "success": true,
+  "message": "Mens Record added successfully..."
+}
+
+
+GET --> Get myprofile
+http://localhost:3636/user/myprofile
+o/p:
+{
+  "success": true,
+  "user": {
+    "_id": "65521fc6316ef97e1d2d30a4",
+    "name": "tek",
+    "email": "tek@gmail.com",
+    "password": "$2b$10$FuVsrcp5jfzL3H39nyUjVuq56Kf4Qya5udHGhtOZFu5wWV8.mJeP6",
+    "creaedAt": "2023-11-13T13:08:22.893Z",
+    "__v": 0
+  }
+}
+
+
+
+POST --> Add Record
+http://localhost:3636/records/add
+ { 
+  "ranking" : 2,
+  "name" : "Raamesh Hasan",
+  "dob" : "12 Aug 2023",
+  "country" : "India",
+  "score" : "1087"
+ }
+o/p:-
+{
+  "success": true,
+  "message": "Mens Record added successfully..."
+}
+
+
+PUT --> Update Record
+http://localhost:3636/records/6552238309d3cf6b2f59b3ab
+{ 
+  "ranking" : 2,
+  "name" : "Hasan",
+  "dob" : "12 Aug 2023",
+  "country" : "India",
+  "score" : "1087"
+ }
+ o/p:-
+ {
+  "success": true,
+  "message": "Updating records",
+  "records": {
+    "_id": "6552238309d3cf6b2f59b3ab",
+    "ranking": 2,
+    "name": "Hasan",
+    "dob": "2023-08-11T18:30:00.000Z",
+    "country": "India",
+    "score": 1087,
+    "event": "100M",
+    "user": "65521fc6316ef97e1d2d30a4",
+    "createdAt": "2023-11-13T13:24:19.638Z",
+    "__v": 0
+  }
+}
+
+
+DELETE --> http://localhost:3636/records/6552238309d3cf6b2f59b3ab
+
+o/p:-
+{
+  "success": true,
+  "message": "Records deleted successfully..."
+}
+
+GET 
+http://localhost:3636/records/myrecords
+
+
+GET --> get all records
+http://localhost:3636/records/allrecords
+
+
+GET --> get record by _id
+http://localhost:3636/records/record/655231d8cc39a3a48c4ee171
+
+
+
+GET user by id 
+http://localhost:3636/user/654fc2ad1307b45724fe2b46
