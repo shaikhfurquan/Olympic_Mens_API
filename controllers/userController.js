@@ -70,7 +70,7 @@ const getMyProfile = (req,res) =>{
     })
 }
 
-//Get  user by Id
+//Get user by Id
 const getUserById = async (req, res) =>{
     const id = req.params.id
     const user = await UserModel.findById(id)
