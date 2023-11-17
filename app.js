@@ -23,7 +23,7 @@ app.use(cors({
 
 //connection of database
 mongoose.connect(DB_URL).then(() =>{
-    console.log('Connected to database successfully');
+    console.log('Connected to database successfully --> Olympic-Mens-DB');
 }).catch((err) =>{
     console.log('Error while connecting to database');
 })
